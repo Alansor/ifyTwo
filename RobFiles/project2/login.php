@@ -41,7 +41,7 @@ if(!empty ($_POST['user'])  && !empty($_POST['pass'])){
 		echo	'<div align="center">';
  		echo " Login Failed!";
 		echo	'</div>';
-		echo "$sql  $user  $pass  $status";
+		echo "$sql_pass  $user  $pass  $status";
 	}
 }
 
