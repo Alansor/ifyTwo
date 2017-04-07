@@ -26,15 +26,16 @@ if(!empty ($_POST['user'])  && !empty($_POST['pass'])){
 	$user=$_POST['user'];
 	$pass=$_POST['pass'];
 
-	$pass_query =  "SELECT PASSWORD FROM USERS WHERE USER='$user'";
+	$pass_query =  "SELECT * FROM USERS WHERE USER='$user'";
 	$db_pass = $dbh->prepare($pass_query);
 	$db_pass->execute();
 	$db_pass = $db_pass->fetch();
-	
+			
 	if ($db_pass['password'] === $pass){
 
 		$_SESSION['user']=$user;
-
+		$_SESSION['email']=$db_pass['email'];
+		$_SESSION['admin']=$db_pass['admin'];	
 		echo " Login is successful!<br/>";
  		header("Location: index.php"); 
 		date_default_timezone_set('America/Denver');
