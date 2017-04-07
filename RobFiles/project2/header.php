@@ -1,4 +1,9 @@
 <!DOCTYPE html>
+<?php
+$host = $_SERVER ['HTTP_HOST'];
+$uri = rtrim ( dirname ( $_SERVER ['PHP_SELF'] ), '/\\' );
+?>
+
 <html lang="en">
         <head>
         
@@ -10,7 +15,7 @@
                 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
                 <link rel="stylesheet" href="custom.css">
                 <link href="https://fonts.googleapis.com/css?family=Alegreya" rel="stylesheet">
-                <title>Project 1</title>
+                <title>Project 2</title>
 
 
 
