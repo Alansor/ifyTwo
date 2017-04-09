@@ -1,0 +1,24 @@
+.content{
+	text-align: center;
+	border: solid;
+	margin: 0.5%;
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	
+	
+}
+
+#logo{
+
+	width:150px;
+	height:150px;
+}
+
+img{
+
+width: 55%;
+margin: 5px;
+}
+
+
