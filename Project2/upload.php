@@ -1,10 +1,8 @@
 <?php
 $loginPage = FALSE;
 $helpPage  = FALSE;
-include 'database.php';
 include 'dbconnect.php';
-include 'header.php';
-$dbh = new Database();
+include 'database.php';
 
 $ingName = $image = $price = $description = $error = '';
 
@@ -19,19 +17,14 @@ if (isset($_POST["submitform"])) {
     $description = $_POST['description'];
 
     
-    try{
-    $dbh->uploadIng($ingName, $price, $description, $image);
+    $dbh -> uploadIng($ingName, $price, $description, $image);
     
     $move = "./images/" . $_FILES['image']['name'];
     move_uploaded_file($_FILES['image']['tmp_name'], "$move");
     chmod($move, 0755);
     
     header("Location: index.php");
-    }
-    catch(Exception $e){
-        echo "Error, could not write to database";
     
-    }
 }
 
 ?>
