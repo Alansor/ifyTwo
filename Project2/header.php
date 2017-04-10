@@ -64,7 +64,8 @@ $uri = rtrim ( dirname ( $_SERVER ['PHP_SELF'] ), '/\\' );
                                                 </ul>
                                         </li>
 
-					<li><a href="about.php">About</a></li>\
+					<li><a href="about.php">About</a></li>
+					<li><a href="upload.php">Upload</a></li>
 
                               </ul>	
 				<ul class="nav navbar-nav navbar-right">
