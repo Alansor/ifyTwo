@@ -6,12 +6,14 @@ include 'dbconnect.php';
 
 if (!isset($_SESSION['contents'])){
 
-	$contents=array();
-
-}else{
-	$contents = $_SESSION['contents'];
+	$_SESSION['contents']=array();
 
 }
+
+
+$contents = $_SESSION['contents'];
+
+
 
 
 if (isset($_GET['add'])){
@@ -26,7 +28,7 @@ foreach($contents as $ingredients){
 }
 
 
-
+print_r($contents);
 
 
 ?>
