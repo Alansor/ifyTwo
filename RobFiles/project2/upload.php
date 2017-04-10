@@ -17,7 +17,7 @@ if (isset($_POST["submitform"])) {
     $description = $_POST['description'];
     $description  = $_POST['description'];
     
-    $dbh->uploadImg($ingName, $price, $description, $image);
+    uploadIng($ingName, $price, $description, $image);
     
     $move = "./images/" . $_FILES['image']['name'];
     move_uploaded_file($_FILES['image']['tmp_name'], "$move");
