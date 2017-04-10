@@ -1,9 +1,11 @@
 <?php
 $loginPage = FALSE;
 $helpPage  = FALSE;
-include 'header.php';
+include 'database.php';
+include 'dbconnect.php';
+$dbh = new Database();
 
-$ingName       = $image = $price = $description = $description = $txt1 = $txt2 = $error = '';
+$ingName = $image = $price = $description = $error = '';
 
 $max_file_size = 1000000;
 
@@ -16,7 +18,7 @@ if (isset($_POST["submitform"])) {
     $description = $_POST['description'];
     $description  = $_POST['description'];
     
-    $dbh->upload($ingName, $image, $price, $description, $description);
+    $dbh->uploadImg($ingName, $price, $description, $image);
     
     $move = "./images/" . $_FILES['image']['name'];
     move_uploaded_file($_FILES['image']['tmp_name'], "$move");

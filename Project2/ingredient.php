@@ -1,7 +1,7 @@
 <?php
 session_start();
+$name = $info = $query = '';
 ?>
-
 
 
 <?php
@@ -25,8 +25,9 @@ session_start();
 
 
 	}*/
-
-	$name=$_GET["name"];
+        if(isset($_GET["name"])){
+            $name=$_GET["name"];
+	}
 	$query = "SELECT * FROM INGREDIENTS WHERE NAME='$name'";
 	$info = $dbh->prepare($query);
 	$info->execute();
