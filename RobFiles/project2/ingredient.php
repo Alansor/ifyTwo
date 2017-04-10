@@ -8,23 +8,28 @@ session_start();
 	include 'header.php';
 	include 'dbconnect.php';
 	
-	function delete_comment($comment2, $dbh){
-		$delete_query = "DELETE FROM COMMENTS WHERE COMMENT='$comment2'";
-		$remove = $dbh->prepare($delete_query);
-		$remove->execute();
+
+
+	if(isset($_POST["remove"])){
+		$delete=$_POST["delete"];
+		$delete_query = "DELETE FROM COMMENTS WHERE ID='$delete'";
+                $remove = $dbh->prepare($delete_query);
+                $remove->execute();
+                echo "<meta http-equiv='refresh' content='0'>";
+
+	}
+
+	if(isset($_POST['Edit'])){
+		$id = $_POST['commentid'];
+		$post_comment=filter_var($_POST['new_comment'],FILTER_SANITIZE_STRING);
+		$post_query = "UPDATE COMMENTS SET COMMENT='$post_comment' WHERE ID='$id')";
+	       	$comment_post = $dbh->prepare($post_query);
+ 	        $comment_post->execute();
+
 		echo "<meta http-equiv='refresh' content='0'>";
 	}
 
-/*	function comment_query(){
-          foreach( $comment_col as $comment){
 
-          echo $comment["user"] . ": " . $comment["comment"] . "<br / <br />";
-          }
-
-         echo "<br /> <br />";
-
-
-	}*/
 
 	$name=$_GET["name"];
 	$query = "SELECT * FROM INGREDIENTS WHERE NAME='$name'";
@@ -44,6 +49,15 @@ session_start();
 
 ?>
 
+
+<script>
+function edit(comment) {
+	document.getElementById("box").innerHTML="Edit:";
+	document.getElementById("commentbutton").value="Submit Edit";
+	document.getElementById('comment').value=comment;
+}
+</script>
+
 <link rel="stylesheet" href="style-ing.css" type="text/css" />
 <div class="content" >
  <div class="col-md-4">
@@ -56,36 +70,55 @@ session_start();
 
          foreach( $comment_col as $comment){
 
+	
+
          echo $comment["user"] . ": " . $comment["comment"] . "<br / <br />";
 
 		if(isset($_SESSION['user']) && $_SESSION['admin']==2){
-			echo	'<form name="delete" method="post" action="#">
-				<input type="submit" value="Delete" name="remove"> 
+			echo	'<form method="post">
+				<input type="hidden" name="delete" value="' . $comment["id"] . '"/>
+				<input type="submit" value="Delete" name="remove""> 
 				</form>';
 
+		/*	 echo    '<form method="post" oncl="edit()">
+        	                  <input type="hidden" name="old_commentid" value="' . $comment["id"] . '"/>
+				<input type="hidden" name="old_comment" value=' . $comment["comment"] . '"/>
+ 	                          <input type="submit" value="Edit" name="change"">
+                                  </form>';*/
+
+				echo	'<form method="post" action="edit.php?name=' . $comment["ingredient"] . '&id=' . $comment["id"].'" >
+				<input type="submit" value="Edit" name="change""> 
+				</form>';
+
+
 		}
+
+		
 	
 					
          }
 
-		if(isset($_POST['remove'])){
-			$delete_text= $comment['comment'];
-			delete_comment($delete_text, $dbh);
-			$_POST['remove']=NULL;
-		}
 
 	echo "<br /> <br />";
+	
+	if(isset($_POST["change"])){
+
+	
+	echo	' <form action="" method="post">
+                 Edit:<br />
+                 <textarea name="edit" id="new_comment"> </textarea><br />
+		 <input type="hidden" name="commentid" value=' . $_POST["old_commentid"] . '"/>
+		<input type="submit" value="Edit" />
+                 </form>';
 
 
 
-
-
-	if (isset ($_SESSION['user'])){
+	}else if (isset ($_SESSION['user'])){
 echo <<<EOT
-		<form action="" method='post'>
-		Comment:<br />
+		<form method='post'>
+		<p id="box">Comment:</p>
   		<textarea name='comment' id='comment'></textarea><br />
-  		<input type='submit' value='Comment' />
+  		<input type='submit' id='commentbutton' value='Comment' />
 
 		</form>
 EOT;
@@ -93,9 +126,14 @@ EOT;
 		
 			$user= $_SESSION['user'];
 			$post_comment=filter_var($_POST['comment'],FILTER_SANITIZE_STRING);
-			$post_query = "INSERT INTO COMMENTS values('$name','$user','$post_comment')";
+			$post_query = "INSERT INTO COMMENTS values('$name','$user','$post_comment','')";
+			$rowid_query = "UPDATE COMMENTS SET ID=ROWID";
 	       		$comment_post = $dbh->prepare($post_query);
  	        	$comment_post->execute();
+			$comment_post = $dbh->prepare($rowid_query);
+                        $comment_post->execute();
+
+
 			echo "<meta http-equiv='refresh' content='0'>";
 		}
 
@@ -106,7 +144,7 @@ EOT;
 		</div>
 </div>
 
-<div class="col-lg-8">
+<div>
          <div class="hidden-sm hidden-xs">
             <?php echo '<img src="images/' . $image . '" class="ingImg" title="Mmmmm, ' . $name . '" alt="Photo of ' . $name . '" />'; ?>
         </div>
@@ -120,4 +158,5 @@ EOT;
 		
 ?>
 	
+
 
