@@ -4,7 +4,7 @@ $helpPage  = FALSE;
 include 'dbconnect.php';
 include 'database.php';
 
-$ingName = $image = $price = $description = $error = '';
+$ingName = $image = $description = $error = '';
 
 $max_file_size = 1000000;
 
@@ -17,9 +17,9 @@ if (isset($_POST["submitform"])) {
     $description = $_POST['description'];
 
     
-    uploadIng($ingName, $price, $description, $image);
+    uploadIng($ingName, $description, $image);
     
-    $move = "./images/" . $_FILES['image']['name'];
+    $move = "images/" . $_FILES['image']['name'];
     move_uploaded_file($_FILES['image']['tmp_name'], "$move");
     chmod($move, 0755);
     
@@ -42,12 +42,7 @@ echo $ingName;
 echo $max_file_size;
 ?>" />
         <br/>
-         
-        <input id="formBox" type='text' value='<?php
-echo $price;
-?>' id='price' name='price' placeholder='Enter Price'/>
-        <br/>
-
+        
         <textarea value='<?php
 echo $description;
 ?>' style="margin-top: 25px; margin-left: 50px;" rows="4" cols="50" id="formInput" name="description" placeholder='Enter description'></textarea>

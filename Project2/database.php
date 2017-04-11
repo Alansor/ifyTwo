@@ -7,11 +7,11 @@
 
 //     include 'dbconnect.php';
         //functions
-        function addIngredient($name, $price, $image){
+        function addIngredient($name, $description, $image){
             $dbh = new PDO("sqlite:./project2.sqlite");
             $sql = "INSERT INTO ingredients(name, description, image) VALUES(?,?,?)";
             $stm = $dbh->prepare($sql);
-            return $stm->execute(array($name, $price, $image));
+            return $stm->execute(array($name, $description, $image));
         }
         function addComment($ingredient, $user, $comment, $id){
             $dbh = new PDO("sqlite:./project2.sqlite");
@@ -19,10 +19,10 @@
             $stm = $dbh->prepare($sql);
             return $stm->execute(array($ingredient, $user, $comment, $id));
         }
-        function uploadIng($name, $price, $description, $image){
+        function uploadIng($name, $description, $image){
             $dbh = new PDO("sqlite:./project2.sqlite");
-            addIngredient($name, $price, NULL, $image);
-            addComment($ingredient, NULL, $description, NULL);
+            addIngredient($name, $description, $image);
+            addComment($ingredient, NULL, $description);
         }
 //     }
 	include 'footer.php';    
