@@ -24,7 +24,7 @@ if (isset($_GET['add'])){
 
 foreach($contents as $ingredients){
 
-	echo $ingredients;
+	echo $ingredients .  '<br/>';
 }
 
 

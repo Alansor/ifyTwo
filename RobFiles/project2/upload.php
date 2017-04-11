@@ -1,8 +1,8 @@
 <?php
 $loginPage = FALSE;
 $helpPage  = FALSE;
-include 'database.php';
 include 'dbconnect.php';
+include 'database.php';
 
 $ingName = $image = $price = $description = $error = '';
 
@@ -15,7 +15,7 @@ if (isset($_POST["submitform"])) {
     $image       = $_FILES['image']['name'];
     $price       = $_POST['price'];
     $description = $_POST['description'];
-    $description  = $_POST['description'];
+
     
     uploadIng($ingName, $price, $description, $image);
     
